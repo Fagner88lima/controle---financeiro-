@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle Financeiro Pessoal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>💰 Controle Financeiro</h1>
+            <p class="subtitle">Gerencie suas finanças com facilidade</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+            <button class="nav-tab" data-tab="adicionar">Adicionar</button>
+            <button class="nav-tab" data-tab="historico">Histórico</button>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <section id="dashboard" class="tab-content active">
+            <!-- Indicador de Desempenho -->
+            <div class="indicator-section">
+                <div class="indicator-card">
+                    <h3>Mês Atual</h3>
+                    <p id="mesAtual" class="mes-atual">Carregando...</p>
+                </div>
+                <div class="indicator-card">
+                    <h3>Saldo do Mês</h3>
+                    <p id="saldoMes" class="saldo-mes">R$ 0,00</p>
+                </div>
+                <div class="indicator-card performance-indicator">
+                    <h3>Desempenho</h3>
+                    <p id="indicador" class="indicador">-</p>
+                </div>
+            </div>
+
+            <!-- Dicas Personalizadas -->
+            <div class="dicas-section">
+                <h3>💡 Dicas Financeiras</h3>
+                <div id="dicasContainer"></div>
+            </div>
+
+            <!-- Resumo Mensal -->
+            <div class="resumo-section">
+                <h3>Resumo Mensal</h3>
+                <div class="resumo-cards">
+                    <div class="resumo-card entrada">
+                        <span class="label">Total de Entradas</span>
+                        <span id="totalEntradas" class="valor">R$ 0,00</span>
+                    </div>
+                    <div class="resumo-card despesa">
+                        <span class="label">Total de Despesas</span>
+                        <span id="totalDespesas" class="valor">R$ 0,00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráfico de Evolução -->
+            <div class="grafico-section">
+                <h3>Evolução do Saldo Líquido</h3>
+                <canvas id="graficoEvolucao"></canvas>
+            </div>
+
+            <!-- Últimas Transações -->
+            <div class="ultimas-transacoes-section">
+                <h3>📊 Últimas Transações</h3>
+                <div id="ultimasTransacoes" class="transacoes-list">
+                    <p class="empty-message">Nenhuma transação registrada</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adicionar Transação Tab -->
+        <section id="adicionar" class="tab-content">
+            <form id="formTransacao" class="form-transacao">
+                <div class="form-group">
+                    <label for="data">Data</label>
+                    <input type="date" id="data" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    <select id="tipo" required>
+                        <option value="">Selecione...</option>
+                        <option value="entrada">Entrada</option>
+                        <option value="despesa">Despesa</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" required>
+                        <option value="">Selecione...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao" placeholder="Ex: Salário, Aluguel..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="valor">Valor (R$)</label>
+                    <input type="number" id="valor" step="0.01" min="0" placeholder="0,00" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Adicionar Transação</button>
+            </form>
+        </section>
+
+        <!-- Histórico Tab -->
+        <section id="historico" class="tab-content">
+            <div class="filtros-section">
+                <input type="month" id="filtroMes" class="filtro-input">
+                <button id="btnLimparFiltro" class="btn btn-secondary">Limpar Filtro</button>
+            </div>
+
+            <div id="historico-list" class="transacoes-list">
+                <p class="empty-message">Nenhuma transação registrada</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="modalConfirmacao" class="modal">
+        <div class="modal-content">
+            <h3>Confirmar exclusão</h3>
+            <p>Tem certeza que deseja excluir esta transação?</p>
+            <div class="modal-buttons">
+                <button id="btnCancelar" class="btn btn-secondary">Cancelar</button>
+                <button id="btnConfirmar" class="btn btn-danger">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
